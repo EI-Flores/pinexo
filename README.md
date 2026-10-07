@@ -2,140 +2,194 @@
 
 # PiNexo
 
-Panel personal para una Raspberry Pi 3 y una pantalla GPIO de **480×320**. Un menú de iconos grandes abre el módulo del clima: pronóstico, avisos de lluvia e imágenes satelitales de México con ciudades y límites estatales. El modo oscuro utiliza fondos azules, líneas cian y detalles ámbar, con un modo claro alternativo.
+A personal dashboard for a Raspberry Pi 3 and a **480×320 GPIO display**. A menu with large icons opens the weather module: forecasts, rain probability notices, and satellite images of Mexico with city labels and state boundaries. The dark theme uses blue backgrounds, cyan lines, and amber accents; a light theme is also available.
 
-El objetivo es dar un uso cotidiano a hardware disponible mediante una interfaz sencilla y módulos que puedan crecer después. **Notificaciones** aparece en el menú como «Próximamente»; todavía no conecta cuentas ni recibe mensajes.
+The goal is to put available hardware to everyday use through a simple interface that can accommodate more modules. The **Notifications** tile is marked as coming soon; account connections and message delivery are still planned. The application interface currently uses Spanish.
 
-![Inicio en modo oscuro](assets/screenshots/home-dark.png)
+![Home screen in dark mode](assets/screenshots/home-dark.png)
 
-## Funciones actuales
+## Current features
 
-- Inicio con iconos de Clima y Notificaciones.
-- Condiciones actuales, temperatura por hora, vista Hoy y próximos tres días.
-- Aviso configurable de probabilidad de lluvia; no es una alerta oficial.
-- Historial NOAA GeoColor con reproducción, pausa, arrastre y zoom de **1× a 10×**.
-- Límites estatales y ciudades según el zoom, con Xalapa destacada.
-- Recorte regional de la misma captura al ampliar más de 4× y pausar.
-- Tema oscuro/claro persistente, caché local y descargas en segundo plano.
-- Inicio automático opcional mediante un servicio del usuario.
+- Home screen with Weather and Notifications icons.
+- Current conditions, hourly temperatures, a Today view, and the next three days.
+- Configurable rain probability notice; this is not an official weather alert.
+- NOAA GeoColor history with playback, pause, dragging, and **1× to 10×** zoom.
+- State boundaries and city labels that depend on zoom, with Xalapa highlighted.
+- A regional crop of the same observation when zooming beyond 4× with playback paused.
+- Persistent dark/light theme, local cache, and background downloads.
+- Optional automatic startup through a user service.
 
-![Clima en modo oscuro](assets/screenshots/weather-dark.png)
-![Satélite a 10×](assets/screenshots/satellite-10x.png)
+![Weather in dark mode](assets/screenshots/weather-dark.png)
+![Satellite view at 10×](assets/screenshots/satellite-10x.png)
 
-## Requisitos
+## Requirements
 
-El equipo de referencia es una **Raspberry Pi 3**, Debian 13 de 64 bits y escritorio **labwc**, con un LCD GPIO de 3.5 pulgadas. La aplicación requiere **Python 3.10 o superior** y **Pygame**, una sesión gráfica y conexión a Internet para actualizar los datos. También puede previsualizarse en una ventana.
+The reference setup is a **Raspberry Pi 3** running 64-bit Debian 13 and the **labwc** desktop, with a 3.5-inch GPIO LCD. The application requires **Python 3.10 or later**, **Pygame**, a graphical session, and an Internet connection to refresh data. A windowed preview is also available.
 
-La pantalla debe funcionar en el escritorio antes de instalar el panel. La [guía de hardware](docs/hardware.md) describe el equipo y la configuración de referencia. El controlador táctil **sigue pendiente de calibración**; se puede utilizar ratón y teclado.
+The display must already show the desktop before installing the dashboard. The [hardware guide](docs/hardware.md) describes the reference hardware and configuration. The touchscreen controller **still needs calibration**; mouse and keyboard input are available.
 
-## Instalación
+## Installation
 
-En la Raspberry instala Git y la dependencia gráfica disponible en Debian:
+On the Raspberry Pi, install Git and the graphics dependency provided by Debian:
 
 ```bash
 sudo apt update
 sudo apt install git python3-pygame
 ```
 
-Clona el repositorio y entra en su carpeta:
+Clone the repository and open its directory:
 
 ```bash
 git clone https://github.com/EI-Flores/pinexo.git
 cd pinexo
 ```
 
-Crea la configuración a partir del ejemplo, conservando cualquier archivo que ya tengas:
+Create the configuration from the example, preserving any existing file:
 
 ```bash
 test -f config.json || cp config.json.example config.json
 ```
 
-Completa **config.json** con tu ciudad, latitud, longitud y zona horaria antes
-de consultar el pronóstico. La plantilla contiene el nombre «Configura tu
-ciudad», coordenadas **0, 0** y zona **UTC** como valores por sustituir; no
-incluye una configuración personal. El encuadre satelital y la cartografía
-actuales se concentran en México; cambiar la ciudad del pronóstico no cambia
-esos encuadres.
+Follow [Choose or change a city](#choose-or-change-a-city) before requesting a forecast. The template contains the placeholder label `Configura tu ciudad`, coordinates **0, 0**, and the **UTC** time zone. Replace these values with your chosen location. The example does not contain personal configuration, and `config.json` is excluded from Git.
 
-Comprueba el pronóstico y ejecuta el panel:
+Check the weather download and start the dashboard:
 
 ```bash
 python3 app.py --check-weather
 python3 app.py
 ```
 
-Si no tienes una pantalla de 480×320 o quieres previsualizarlo, usa **python3 app.py --windowed**. La opción **--demo** muestra datos meteorológicos inventados sin conexión:
+Use `python3 app.py --windowed` if you do not have a 480×320 display or want a preview. The `--demo` option displays fictional weather data offline:
 
 ```bash
 python3 app.py --windowed --demo
 ```
 
-Para iniciar automáticamente en la sesión de tu usuario, cierra primero cualquier instancia manual y ejecuta:
+For automatic startup in your user session, first close any manually started instance and run:
 
 ```bash
 python3 manage.py enable
 ```
 
-El servicio necesita que el escritorio del mismo usuario esté disponible. No inicia la sesión gráfica por su cuenta y no requiere ejecutar el panel como administrador.
+The service needs the same user's desktop to be available. It does not start a graphical login session itself, and the dashboard does not need administrator privileges.
 
-## Uso y mantenimiento
+## Choose or change a city
 
-| Acción | Control |
+The dashboard reads `config.json` in the project directory at startup. It does **not** search for a location by city name: the forecast request uses the coordinates and time zone. Update all four fields together when choosing another location:
+
+| Field | Purpose and accepted value |
 |---|---|
-| Entrar al clima desde Inicio | Icono Clima o 1 |
-| Volver a Inicio | Botón Inicio, H o Escape |
-| Cambiar tema | Claro/Oscuro en Inicio o D |
-| Elegir vista meteorológica | Botones inferiores o 1–5 |
-| Reproducir/pausar satélite | Botón o Espacio/P |
-| Zoom y desplazamiento | +/−, rueda y arrastre; flechas para mover |
-| México / Veracruz | Botones o M / V |
-| Cerrar | Escape desde Inicio |
+| `city` | Display label, such as `Berlin, Germany`. Changing this text alone does not change the forecast location. |
+| `latitude` | Latitude in decimal degrees, as a JSON number between −90 and 90. South is negative. |
+| `longitude` | Longitude in decimal degrees, as a JSON number between −180 and 180. West is negative. |
+| `timezone` | IANA time zone identifier, such as `Europe/Berlin`. Use the location's time zone, not an abbreviation such as `CST` or a fixed UTC offset. |
 
-Al pasar de **4×** se pausa la animación. El panel solicita un recorte regional cuando se estabiliza el encuadre; conserva la imagen disponible ante fallos y evita descargar un historial completo por cada aumento. La hora mostrada sigue siendo la de esa captura. **10× no añade detalle de calles**: la resolución depende del sensor y del producto.
+To find these values, use the [Open-Meteo geocoding documentation and location search](https://open-meteo.com/en/docs/geocoding-api). Check the result's country and administrative area to distinguish places with the same name, then copy its `latitude`, `longitude`, and `timezone` fields.
 
-La caché y la preferencia de tema se guardan en **~/.cache/pi-clima** o bajo **XDG_CACHE_HOME**. El nombre interno del servicio es **pi-clima.service**, conservado por compatibilidad. **PiNexo** es el nombre del proyecto; el nombre de red de la Raspberry se configura aparte.
+For example, the following four fields select **Berlin, Germany**, using the public example in the geocoding documentation:
 
-Para consultar el servicio:
+```json
+{
+  "city": "Berlin, Germany",
+  "latitude": 52.52437,
+  "longitude": 13.41053,
+  "timezone": "Europe/Berlin"
+}
+```
+
+This is a **partial example**. Replace the matching fields in your existing `config.json`; keep the refresh intervals, satellite URL, and other settings. Use a decimal point for coordinates, leave numbers unquoted, and keep valid JSON syntax with no comments or trailing commas.
+
+From the project directory, edit the file:
+
+```bash
+nano config.json
+```
+
+Save it and check the configuration and forecast download without opening a graphical window:
+
+```bash
+python3 app.py --check-weather
+```
+
+The output should show the chosen city label, temperature, observation time, and configured time zone. If it reports an error, correct the configuration or connection before restarting the dashboard.
+
+If automatic startup is enabled, apply the change with:
+
+```bash
+systemctl --user restart pi-clima.service
+```
+
+If you run the dashboard manually, close the existing window and start it again with `python3 app.py` (or `python3 app.py --windowed` for a preview). A Raspberry Pi reboot is not required. Forecast cache entries are matched by coordinates and time zone, so a previous location's forecast is not reused for a different location.
+
+You can also use a separate configuration file for a manual run:
+
+```bash
+python3 app.py --config /absolute/path/to/config.json --windowed
+```
+
+That option applies only to that invocation; the automatically managed service continues to use the project's `config.json`.
+
+**Current scope:** these settings change the forecast location and the displayed time zone. Satellite coverage and map overlays remain focused on Mexico. The Mexico/Veracruz presets, highlighted Xalapa marker, Home card caption, and demo city label are not yet configurable and require separate code or map changes.
+
+## Usage and maintenance
+
+The controls below refer to the current Spanish interface labels.
+
+| Action | Control |
+|---|---|
+| Open weather from Home | `Clima` icon or 1 |
+| Return to Home | `Inicio` button, H, or Escape |
+| Switch theme | `Claro`/`Oscuro` on Home or D |
+| Select a weather view | Bottom buttons or 1–5 |
+| Play/pause satellite history | Playback button or Space/P |
+| Zoom and pan | +/−, mouse wheel, and dragging; arrow keys to pan |
+| Mexico / Veracruz preset | `México` / `Veracruz` buttons or M / V |
+| Quit | Escape from Home |
+
+Zooming beyond **4×** pauses animation. Once the view settles, the dashboard requests a regional crop; it keeps the available image if a request fails and avoids downloading a complete history for each zoom change. The displayed timestamp still belongs to that observation. **10× does not add street-level detail**: resolution depends on the sensor and product.
+
+The cache and theme preference are stored in `~/.cache/pi-clima` or under `XDG_CACHE_HOME`. The internal service name remains `pi-clima.service` for compatibility. **PiNexo** is the project name; the Raspberry Pi's network hostname is configured separately.
+
+Inspect the service with:
 
 ```bash
 python3 manage.py status
 python3 manage.py logs
 ```
 
-Para desactivar el inicio automático, usa **python3 manage.py disable**. Después de cambiar config.json, reinícialo con **systemctl --user restart pi-clima.service**. Si ejecutas manualmente, detén antes el servicio para evitar dos instancias.
+To disable automatic startup, use `python3 manage.py disable`. Restart the service after changing `config.json`, as described above. Stop the service with `systemctl --user stop pi-clima.service` before starting a manual instance to avoid running two copies.
 
-## Estado y documentación
+## Project status and documentation
 
-La aplicación incorpora pruebas locales para datos, caché y controles, y vistas renderizadas con un controlador gráfico simulado. La fluidez, el consumo y el touch necesitan comprobarse en cada Raspberry y pantalla; no se presenta una certificación de compatibilidad con todos los LCD GPIO.
+The application includes local tests for data, caches, and controls, plus views rendered with a simulated display driver. Performance, resource use, and touch input need checking on each Raspberry Pi and display; compatibility with every GPIO LCD has not been verified.
 
-- [Arquitectura y flujo de datos](docs/architecture.md).
-- [Hardware y pantalla de referencia](docs/hardware.md).
-- [Mejoras consideradas](docs/roadmap.md).
-- [Fuentes y atribuciones](docs/data-sources.md).
-- [Actualizar una instalación existente](docs/upgrade.md).
-- [Cómo contribuir](CONTRIBUTING.md) y [pruebas sin conexión](tests/README.md).
+All README files are in English. Supporting guides and the contribution guide are currently in Spanish:
 
-Para comprobar el software en un entorno de desarrollo con Python 3.12:
+- [Architecture and data flow](docs/architecture.md).
+- [Reference hardware and display](docs/hardware.md).
+- [Planned improvements](docs/roadmap.md).
+- [Data sources and attribution](docs/data-sources.md).
+- [Upgrade an existing installation](docs/upgrade.md).
+- [Contributing](CONTRIBUTING.md) and [offline tests](tests/README.md).
+
+To check the software in a development environment with Python 3.12:
 
 ```sh
 python -m pip install -r requirements-dev.txt
 python -m unittest discover -s tests -t . -v
 ```
 
-GitHub Actions ejecuta estas pruebas con pantalla simulada. No comprueba el
-cableado, el controlador ni la fluidez del LCD físico.
+GitHub Actions runs these tests with a simulated display. It does not verify physical LCD wiring, drivers, or performance.
 
-## Autoría y fuentes
+## Authorship and data sources
 
-Proyecto de [EI-Flores](https://github.com/EI-Flores). Los datos externos conservan sus atribuciones y condiciones de uso:
+A project by [EI-Flores](https://github.com/EI-Flores). External data retains its own attribution and usage conditions:
 
-- [Open-Meteo](https://open-meteo.com/en/docs): pronóstico; [licencia y atribución](https://open-meteo.com/en/licence), [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
-- [NOAA GeoColor](https://satellitemaps.nesdis.noaa.gov/arcgis/rest/services/ABIGC_Last_24hr/ImageServer): imágenes satelitales; crédito CIRA/NOAA.
-- [Natural Earth](https://www.naturalearthdata.com/): límites y ciudades, [dominio público](https://www.naturalearthdata.com/about/terms-of-use/). Créditos y originales en map_data.json.
-- [GeoNames: Xalapa](https://www.geonames.org/3526617/xalapa-de-enriquez.html): coordenadas, [CC BY](https://www.geonames.org/export/#terms).
+- [Open-Meteo](https://open-meteo.com/en/docs): weather forecasts; [license and attribution](https://open-meteo.com/en/licence), [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+- [NOAA GeoColor](https://satellitemaps.nesdis.noaa.gov/arcgis/rest/services/ABIGC_Last_24hr/ImageServer): satellite imagery; credit CIRA/NOAA.
+- [Natural Earth](https://www.naturalearthdata.com/): boundaries and cities, [public domain](https://www.naturalearthdata.com/about/terms-of-use/). Credits and original sources are recorded in `map_data.json`.
+- [GeoNames: Xalapa](https://www.geonames.org/3526617/xalapa-de-enriquez.html): coordinates, [CC BY](https://www.geonames.org/export/#terms).
 
-El código se distribuye con [licencia MIT](LICENSE), con autoría **EI-Flores**.
-Los datos e imágenes externos conservan sus propias condiciones, descritas en
-[Fuentes y atribuciones](docs/data-sources.md).
+The code is distributed under the [MIT license](LICENSE), with authorship credited to **EI-Flores**. External data and imagery retain their own terms, described in [Data sources and attribution](docs/data-sources.md).
 
-La ficha del proyecto en GitHub Pages se preparará después.
+A project page on GitHub Pages is planned for later.

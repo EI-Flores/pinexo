@@ -1,21 +1,21 @@
-# Pruebas sin conexión
+# Offline tests
 
-Desde la raíz del repositorio, con Python 3.12:
+From the repository root, using Python 3.12:
 
 ```sh
 python -m pip install -r requirements-dev.txt
 python -m unittest discover -s tests -t . -v
 ```
 
-Las pruebas usan datos locales y una pantalla SDL simulada de 480×320.
-No requieren Raspberry Pi, escritorio, cuentas, GPIO ni conexión a NOAA.
-Los archivos temporales se eliminan al terminar; no leen la caché personal
-ni modifican la configuración del usuario. No ejecutan systemd.
+The tests use local data and a simulated 480×320 SDL display.
+They do not require a Raspberry Pi, desktop session, accounts, GPIO, or a
+connection to NOAA. Temporary files are removed when the tests finish.
+The tests do not read the user's cache, modify user settings, or run systemd.
 
-Para comprobar las pruebas contra un árbol de código externo, puede definirse
-`PI_CLIMA_TEST_PROJECT` con su ruta absoluta. Normalmente no hace falta:
-los módulos de la aplicación se encuentran en la raíz del repositorio.
+To run the tests against another source tree, set `PI_CLIMA_TEST_PROJECT`
+to its absolute path. This is usually unnecessary: the application modules
+are located at the repository root.
 
-Se comprueban cachés y fallos de proveedores, fechas y geometría satelital,
-descargas con cola acotada, umbrales de lluvia, protección de servicios,
-preferencias, menú, navegación y descarte de detalles antiguos.
+The tests cover caching and provider failures, dates and satellite geometry,
+downloads with a bounded queue, rain thresholds, service safeguards,
+preferences, the menu, navigation, and rejection of outdated detail responses.

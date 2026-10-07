@@ -1,13 +1,13 @@
-# Capturas
+# Screenshots
 
-Estas imágenes se renderizaron con la aplicación en una pantalla simulada de
-480×320. No son fotografías del LCD físico ni representan el pronóstico actual.
+These images were rendered by the application on a simulated 480×320 display.
+They are not photographs of the physical LCD and do not show the current forecast.
 
-- `home-dark.png` y `home-light.png`: menú de PiNexo.
-- `weather-dark.png`: vista meteorológica con datos consultados en Open-Meteo.
-- `satellite-10x.png`: recorte regional NOAA GeoColor de la captura indicada
-  en la propia imagen, con límites y ciudades superpuestos.
+- `home-dark.png` and `home-light.png`: the PiNexo menu.
+- `weather-dark.png`: the weather view with data retrieved from Open-Meteo.
+- `satellite-10x.png`: a regional NOAA GeoColor crop from the observation
+  timestamp shown in the image, with state boundaries and city labels overlaid.
 
-Créditos: pronóstico Open-Meteo (CC BY 4.0); imagen GeoColor CIRA/NOAA;
-cartografía Natural Earth (dominio público); coordenadas de Xalapa GeoNames
-(CC BY). Consulta [las atribuciones completas](../../docs/data-sources.md).
+Credits: Open-Meteo forecast data (CC BY 4.0); GeoColor imagery from CIRA/NOAA;
+Natural Earth cartography (public domain); Xalapa coordinates from GeoNames
+(CC BY). See the [full attributions](../../docs/data-sources.md).
