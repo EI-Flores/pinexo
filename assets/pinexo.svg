@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="160" viewBox="0 0 640 160" role="img" aria-labelledby="title desc">
+  <title id="title">PiNexo</title>
+  <desc id="desc">Panel modular para Raspberry Pi, con puntos conectados y acentos cian sobre azul oscuro.</desc>
+  <rect width="640" height="160" rx="12" fill="#030c14"/>
+  <g fill="none" stroke="#16d6f2" stroke-width="3">
+    <path d="M28 50V28h22M28 110v22h22M590 28h22v22M590 132h22v-22"/>
+    <path d="M70 80 112 50 145 88 104 113 70 80"/>
+    <circle cx="70" cy="80" r="8" fill="#081723"/>
+    <circle cx="112" cy="50" r="8" fill="#081723"/>
+    <circle cx="145" cy="88" r="8" fill="#081723"/>
+    <circle cx="104" cy="113" r="8" fill="#ffc670" stroke="#ffc670"/>
+  </g>
+  <text x="190" y="85" font-family="DejaVu Sans,Arial,sans-serif" font-size="52" font-weight="bold" fill="#def4fa">Pi<tspan fill="#16d6f2">Nexo</tspan></text>
+  <text x="193" y="117" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" fill="#88aab9">Panel modular para Raspberry Pi</text>
+</svg>

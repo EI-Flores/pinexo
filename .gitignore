@@ -1,0 +1,30 @@
+# Configuración local y credenciales
+config.json
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Archivos generados y entornos
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.cache/
+cache/
+*.log
+*.tmp
+*.bak
+dist/
+build/
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Archivos del sistema y el editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

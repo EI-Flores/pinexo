@@ -1,0 +1,12 @@
+{
+  "city": "Configura tu ciudad",
+  "latitude": 0.0,
+  "longitude": 0.0,
+  "timezone": "UTC",
+  "weather_refresh_seconds": 900,
+  "satellite_refresh_seconds": 600,
+  "page_seconds": 30,
+  "rain_alert_probability": 60,
+  "satellite_url": "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/SECTOR/mex/GEOCOLOR/500x500.jpg",
+  "theme": "dark"
+}
