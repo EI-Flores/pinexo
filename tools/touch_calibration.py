@@ -84,13 +84,18 @@ def fit_affine(observed, targets):
 
 
 def summarize_contact(samples, duration):
-    """Use only in-contact events, removing settling/release tails and outliers."""
-    if not math.isfinite(duration) or duration < 0.35 or duration > 2.5:
-        raise CalibrationError("Mantén el lápiz entre 0.5 y 1 segundo y luego levántalo.")
-    if len(samples) < 3:
-        raise CalibrationError("Llegaron pocas muestras. Mantén el lápiz con presión suave.")
-    if any(len(sample) != 3 or not all(math.isfinite(float(v)) for v in sample) for sample in samples):
+    """Record a complete contact, keeping quality limits separate from capture."""
+    if not math.isfinite(duration) or duration < 0:
+        raise CalibrationError("La duración del contacto no es válida.")
+    if not samples or any(len(sample) != 3 or not all(math.isfinite(float(v)) for v in sample) for sample in samples):
         raise CalibrationError("Se recibieron muestras inválidas.")
+    quality_reasons = []
+    if not 0.35 <= duration <= 2.5:
+        quality_reasons.append("La duración quedó fuera del intervalo de 0.35–2.5 segundos.")
+    if len(samples) < 3:
+        # Motion events are not periodic sensor samples: a stationary contact
+        # may supply only its initial position and a later release.
+        quality_reasons.append("Llegaron menos de tres muestras; la estabilidad no está verificada.")
     settled = [sample for sample in samples if 0.08 <= sample[0] <= duration - 0.06]
     usable = settled if len(settled) >= 3 else samples
     middle = (statistics.median(sample[1] for sample in usable),
@@ -99,17 +104,18 @@ def summarize_contact(samples, duration):
     mad = statistics.median(distances)
     cutoff = max(4.0, 3 * mad)
     kept = [sample for sample, distance in zip(usable, distances) if distance <= cutoff]
-    if len(kept) < 3:
-        raise CalibrationError("Las muestras no son estables. Repite sin arrastrar el lápiz.")
+    if len(samples) >= 3 and len(kept) < 3:
+        quality_reasons.append("Quedaron menos de tres muestras después de filtrar el contacto.")
     position = (statistics.median(sample[1] for sample in kept),
                 statistics.median(sample[2] for sample in kept))
     radii = sorted(math.dist(sample[1:], position) for sample in usable)
     p90 = radii[min(len(radii) - 1, math.ceil(0.9 * len(radii)) - 1)]
     if p90 > 8:
-        raise CalibrationError("El contacto se movió demasiado. Repite apoyando el lápiz en la cruz.")
+        quality_reasons.append("El contacto tuvo más de ocho píxeles de dispersión.")
     return {"observed_pixels": list(position), "duration_seconds": duration,
             "event_samples": len(samples), "settled_samples": len(usable),
-            "retained_samples": len(kept), "p90_radius_pixels": p90}
+            "retained_samples": len(kept), "p90_radius_pixels": p90,
+            "quality_reasons": quality_reasons}
 
 
 def read_configuration(path):
@@ -190,7 +196,7 @@ def build_report(contacts, configuration, input_source, windowed=False):
         gains = (math.hypot(correction[0], correction[1]), math.hypot(correction[3], correction[4]))
         if not 0.25 <= abs(determinant) <= 4 or any(not 0.5 <= gain <= 2.5 for gain in gains):
             reasons.append("El ajuste exige una escala fuera del intervalo estable previsto.")
-        if any(contact.get("event_samples", 0) < 3 or contact.get("p90_radius_pixels", math.inf) > 8
+        if any(contact.get("quality_reasons") or contact.get("event_samples", 0) < 3 or contact.get("p90_radius_pixels", math.inf) > 8
                or not 0.35 <= contact.get("duration_seconds", 0) <= 2.5 for contact in contacts):
             reasons.append("Hay contactos con pocas muestras, duración inválida o movimiento excesivo.")
         if windowed:
@@ -311,8 +317,10 @@ def collect_contacts(windowed=False):
                     duration = now - active["started"]
                     if up:
                         try:
-                            contacts.append(summarize_contact(active["samples"], duration))
-                            message = "Contacto registrado. Toca la siguiente cruz."
+                            contact = summarize_contact(active["samples"], duration)
+                            contacts.append(contact)
+                            message = ("Contacto registrado con calidad insuficiente. Sigue con la próxima cruz."
+                                       if contact["quality_reasons"] else "Contacto registrado. Toca la siguiente cruz.")
                         except CalibrationError as exc:
                             message = str(exc)
                         active = None

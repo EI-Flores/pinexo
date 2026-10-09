@@ -31,7 +31,7 @@ python3 tools/touch_calibration.py --output "$HOME/pinexo-touch-report.json"
 
 The script is standalone and can also be copied to another directory without copying the rest of PiNexo. Run it as the desktop user, without `sudo`. When launched through SSH, it attempts to locate a unique labwc session belonging to that user; if this is ambiguous, run it from a terminal in the LCD's desktop.
 
-Touch each cyan cross in the order displayed: **center, top-left, top-right, bottom-right, bottom-left**. Hold the stylus still for approximately one second, then lift it before the next target. The orange marker and displayed coordinates show where the application receives the contact. A short or unstable contact is rejected and the same target remains active. Press Escape to cancel.
+Touch each cyan cross in the order displayed: **center, top-left, top-right, bottom-right, bottom-left**. Hold the stylus still for approximately one second, then lift it before the next target. The orange marker and displayed coordinates show where the application receives the contact. Each completed contact is recorded and advances to the next cross; short, sparse, or unstable measurements are retained with quality reasons. Press Escape or use Ctrl+C in the launching terminal to cancel.
 
 After a complete run, inspect the report:
 
@@ -50,6 +50,8 @@ The optional `--config /absolute/path/rc.xml` argument selects another saved con
 ## Interpret the report
 
 The report records the saved matrix, five observed and requested positions, contact stability, and errors in pixels. Stable measurements with a suitable affine fit can produce `status: proposed` and a `proposed_labwc_value`. Insufficient, unstable, or inconsistent measurements produce `status: invalid` with reasons.
+
+A stationary contact may generate press and release events without repeated motion events. That does not by itself establish a broken sensor. Such contacts are recorded rather than forcing an endless retry at the center. When there are too few independent observations to evaluate stability, the report retains the positions but does not propose a matrix. An invalid report is useful diagnostic evidence, not a hardware failure verdict.
 
 `active_matrix_verified` and `applied` remain false. The proposed matrix composes the measured screen correction with the matrix in the saved file. It depends on that saved matrix actually being active and on the display and input assumptions above. Do not copy the result blindly into a different device or output setup.
 
