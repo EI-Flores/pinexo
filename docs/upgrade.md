@@ -1,13 +1,13 @@
-# Actualizar el panel instalado antes de PiNexo
+# Upgrading a dashboard installed before PiNexo
 
-El proyecto partió de una instalación llamada `pi-clima`. PiNexo conserva los
-nombres internos del servicio y la caché para aprovechar esa configuración.
-El nombre de red de la Raspberry sigue siendo independiente del proyecto.
+The project started from an installation named `pi-clima`. PiNexo retains
+the internal service and cache names to reuse that configuration.
+The Raspberry Pi's hostname remains independent of the project.
 
-## Pasar de la carpeta anterior al repositorio
+## Moving from the previous directory to the repository
 
-En la Raspberry, detén el servicio y cierra cualquier instancia manual antes
-de cambiar la ubicación del programa:
+On the Raspberry Pi, stop the service and close any manually started instance
+before changing the program's location:
 
 ```bash
 systemctl --user stop pi-clima.service
@@ -18,20 +18,20 @@ cd "$HOME/pinexo"
 python3 manage.py enable
 ```
 
-Esto supone que la instalación anterior está en `~/pi-clima` y que
-`~/pinexo` no existe todavía. Si tus rutas son distintas, ajústalas antes.
-Una ausencia del servicio significa que no hay nada automático que detener;
-revisa cualquier otro error antes de continuar.
+This assumes the previous installation is in `~/pi-clima` and that
+`~/pinexo` does not yet exist. If your paths differ, adjust them first.
+A missing service means there is no automatic instance to stop;
+check any other error before continuing.
 
-`manage.py enable` actualiza la unidad que reconoce como administrada por
-este proyecto y cambia su ruta al nuevo `app.py`. Conserva las preferencias
-y los datos de `~/.cache/pi-clima`. La carpeta anterior y su copia quedan
-disponibles para volver a ella. No requiere reiniciar el equipo ni cambiar
-el controlador de la pantalla.
+`manage.py enable` updates the unit it recognizes as managed by this project
+and changes its path to the new `app.py`. It preserves the preferences
+and data in `~/.cache/pi-clima`. The previous directory and its backup remain
+available if you need to revert. This does not require rebooting the computer
+or changing the display driver.
 
-## Actualizaciones siguientes
+## Subsequent updates
 
-En una instalación limpia sin cambios locales en archivos de código:
+On a clean installation with no local changes to source files:
 
 ```bash
 systemctl --user stop pi-clima.service
@@ -40,13 +40,13 @@ git pull --ff-only
 python3 manage.py enable
 ```
 
-No continúes con el último paso si la actualización falla. `config.json`
-está excluido del repositorio y se conserva. Si modificaste código, guarda
-tus cambios en una rama o revisa la diferencia antes de actualizar.
+Do not proceed with the last step if the update fails. `config.json`
+is excluded from the repository and is preserved. If you modified the code,
+save your changes on a branch or review the diff before updating.
 
-## Volver al programa anterior
+## Returning to the previous program
 
-Si conservaste la carpeta antigua, detén el servicio y reinstala su ruta:
+If you kept the old directory, stop the service and restore its path:
 
 ```bash
 systemctl --user stop pi-clima.service
@@ -54,4 +54,4 @@ cd ~/pi-clima
 python3 manage.py enable
 ```
 
-Usa sólo una de las instalaciones a la vez para evitar dos ventanas del panel.
+Use only one installation at a time to avoid opening two dashboard windows.
