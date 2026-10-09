@@ -163,7 +163,7 @@ To disable automatic startup, use `python3 manage.py disable`. Restart the servi
 
 The application includes local tests for data, caches, and controls, plus views rendered with a simulated display driver. Performance, resource use, and touch input need checking on each Raspberry Pi and display; compatibility with every GPIO LCD has not been verified.
 
-All README files are in English. Supporting guides and the contribution guide are currently in Spanish:
+Project documentation is written in English:
 
 - [Architecture and data flow](docs/architecture.md).
 - [Reference hardware and display](docs/hardware.md).
