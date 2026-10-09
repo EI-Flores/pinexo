@@ -1,12 +1,12 @@
-## Cambio
+## Change
 
-Explica el problema y el comportamiento que tendrá el panel.
+Explain the problem and how the panel will behave after the change.
 
-## Verificación
+## Verification
 
-Describe las pruebas ejecutadas. Para cambios visuales, incluye capturas de
-480×320 en ambos temas y especifica si se probaron en la Raspberry.
+Describe the tests you ran. For visual changes, include 480×320 screenshots
+in both themes and specify whether they were tested on the Raspberry.
 
-## Limitaciones
+## Limitations
 
-Indica lo que todavía necesita comprobarse.
+Mention what still needs to be checked.

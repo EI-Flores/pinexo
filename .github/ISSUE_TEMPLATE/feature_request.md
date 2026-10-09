@@ -1,20 +1,20 @@
 ---
-name: Proponer una mejora
-about: Sugiere una función útil para un panel de 480×320
+name: Suggest an improvement
+about: Suggest a useful feature for a 480×320 panel
 title: ""
 labels: ""
 assignees: ""
 ---
 
-## Uso que resolvería
+## Use case
 
-Describe cuándo usarías la función y por qué ayudaría.
+Describe when you would use the feature and why it would help.
 
-## Propuesta
+## Proposal
 
-Explica la interacción que imaginas en la pantalla.
+Explain the interaction you envision on the screen.
 
-## Recursos y datos
+## Resources and data
 
-¿Necesita una cuenta, un proveedor o hardware adicional? No incluyas
-credenciales. Indica si conoces requisitos de memoria, red o CPU.
+Does it need an account, a provider, or additional hardware? Do not include
+credentials. Mention any memory, network, or CPU requirements you know of.

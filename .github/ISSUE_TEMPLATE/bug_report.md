@@ -1,31 +1,31 @@
 ---
-name: Reportar un problema
-about: Describe un fallo reproducible en PiNexo
+name: Report a problem
+about: Describe a reproducible bug in PiNexo
 title: ""
 labels: ""
 assignees: ""
 ---
 
-## Qué ocurre
+## What happens
 
-Describe el resultado y qué esperabas ver.
+Describe the result and what you expected to see.
 
-## Cómo reproducirlo
+## Steps to reproduce
 
 1.
 2.
 3.
 
-## Entorno
+## Environment
 
-- Modelo de Raspberry:
-- Pantalla y resolución:
-- Sistema operativo y Python:
-- Escritorio / sesión gráfica:
-- Versión o commit de PiNexo:
-- Prueba en LCD físico o ventana simulada:
+- Raspberry model:
+- Display and resolution:
+- Operating system and Python:
+- Desktop / graphical session:
+- PiNexo version or commit:
+- Tested on a physical LCD or simulated window:
 
-## Evidencia
+## Evidence
 
-Incluye la captura o salida mínima necesaria, eliminando credenciales,
-correos, IP y datos personales.
+Include the minimum screenshot or output needed, removing credentials,
+email addresses, IP addresses, and personal data.
