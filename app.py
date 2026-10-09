@@ -328,7 +328,8 @@ def main() -> int:
                 dirty = False
             if args.smoke_seconds and time.monotonic() - started >= args.smoke_seconds:
                 running = False
-            pygame.time.wait(100)
+            # Poll input promptly; redraw only when the view is dirty.
+            pygame.time.wait(20)
         stop.set()
         return exit_code
     except pygame.error as exc:

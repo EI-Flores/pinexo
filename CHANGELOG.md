@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Reduce the input polling wait from 100 ms to 20 ms while retaining redraws only when needed. Physical LCD latency still needs verification.
 - Translate the project's Markdown documentation into English.
 - Add contribution guidelines for separate commits by topic.
 
