@@ -1,29 +1,29 @@
-# Mejoras consideradas para PiNexo
+# Potential improvements for PiNexo
 
-Esta lista expresa posibles siguientes pasos. No establece fechas, garantiza integraciones ni presenta las funciones pendientes como disponibles.
+This list outlines possible next steps. It does not set dates, guarantee integrations, or present pending features as available.
 
-## Base disponible
+## Available baseline
 
-La versión actual incluye Inicio con iconos, módulo del clima, satélite con cartografía y zoom hasta 10×, ambos temas, caché y servicio opcional. Notificaciones muestra una página «Próximamente». El controlador táctil sigue pendiente de calibración.
+The current version includes the `Inicio` (Home) screen with icons, a weather module, a satellite view with map overlays and zoom up to 10×, both themes, caching, and an optional service. `Notificaciones` (Notifications) displays a “Próximamente” (Coming soon) page. The touch controller still needs calibration.
 
-## Próximo trabajo en el dispositivo
+## Next steps on the device
 
-- **Touch:** comprobar eventos del controlador, orientación y calibración para navegar directamente en el LCD.
-- **Uso continuo:** observar estabilidad, fluidez, memoria y descargas en la Raspberry Pi 3 durante sesiones prolongadas.
-- **Legibilidad:** ajustar tamaños y contrastes a partir de la prueba física, conservando los temas oscuro y claro.
+- **Touch:** check controller events, orientation, and calibration to navigate directly on the LCD.
+- **Continuous use:** observe stability, responsiveness, memory use, and downloads on the Raspberry Pi 3 during extended sessions.
+- **Readability:** adjust sizes and contrast based on testing on the physical device, retaining the dark and light themes.
 
-## Evolución del panel
+## Dashboard development
 
-- **Notificaciones:** elegir una primera fuente útil antes de añadir cuentas, autenticación y avisos reales. El icono actual reserva el espacio, sin conexión externa.
-- **Módulos:** definir una interfaz común de apertura, regreso a Inicio y estado, manteniendo separados los datos y las vistas.
-- **Configuración:** facilitar ajustes de ciudad, intervalos y preferencias sin editar código.
-- **Información adicional:** valorar datos de red u otros indicadores si aportan un uso cotidiano y caben en los recursos del equipo.
+- **Notifications:** choose an initial useful source before adding accounts, authentication, and real alerts. The current icon reserves the space and has no external connection.
+- **Modules:** define a common interface for opening modules, returning to `Inicio` (Home), and reporting status, keeping data and views separate.
+- **Settings:** make it easier to adjust the city, intervals, and preferences without editing code.
+- **Additional information:** consider network data or other indicators if they are useful in everyday use and fit within the device's resources.
 
-## Presentación del proyecto
+## Project presentation
 
-- Documentar resultados reales y limitaciones después de las pruebas en el LCD.
-- Incorporar capturas y una explicación breve de la arquitectura para el portfolio.
-- Preparar posteriormente una ficha estática en **GitHub Pages**, con descripción, imágenes y enlace al repositorio. La aplicación Python seguirá ejecutándose en la Raspberry; Pages serviría para presentar el proyecto.
-- Mantener las atribuciones de los proveedores junto a la licencia MIT del código.
+- Document actual results and limitations after testing on the LCD.
+- Add screenshots and a brief architecture explanation for the portfolio.
+- Later, prepare a static project page on **GitHub Pages**, with a description, images, and a link to the repository. The Python application will continue to run on the Raspberry Pi; Pages would present the project.
+- Keep provider attributions alongside the code's MIT license.
 
-El criterio para priorizar es la utilidad en una Raspberry Pi 3 y una pantalla de 480×320, sin convertir cada idea en un servicio adicional que mantener.
+Prioritize usefulness on a Raspberry Pi 3 and a 480×320 screen, without turning every idea into an additional service to maintain.
