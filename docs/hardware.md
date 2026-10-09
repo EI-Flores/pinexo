@@ -44,6 +44,8 @@ Linux recognizes the touch device, but calibration and alignment with the image 
 
 A completed calibration procedure is not provided. The next step is to check events, orientation, and alignment on the physical display. In the meantime, the dashboard is used with a mouse and keyboard, including through remote desktop when the visible session is shared.
 
+The [five-point touch diagnostic](touch-calibration.md) measures alignment and can propose a correction for review. It does not apply settings or establish that the physical touchscreen is calibrated.
+
 ## Checking the physical setup
 
 First, check the desktop on the LCD. Then test **Inicio**, navigation to the weather module, both themes, satellite playback, pause, zoom, and dragging. Verify that the observation timestamp still corresponds to the selected frame when regional detail is requested.
