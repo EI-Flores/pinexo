@@ -1,21 +1,26 @@
-# Historial de cambios
+# Changelog
 
-## Base inicial de PiNexo
+## Unreleased
 
-El repositorio parte del panel funcional v5, desarrollado antes de organizar
-este proyecto como repositorio independiente. Esta lista resume esa evolución;
-no representa etiquetas o releases publicados en GitHub.
+- Translate the project's Markdown documentation into English.
+- Add contribution guidelines for separate commits by topic.
 
-- Menú Inicio con iconos grandes para Clima y Notificaciones.
-- Notificaciones reservado como «Próximamente».
-- Tema oscuro y tema claro, con preferencia persistente.
-- Clima actual, vista Hoy, próximos días y aviso configurable de lluvia.
-- Historial satelital NOAA, animación, pausa y movimiento del encuadre.
-- Zoom hasta 10× y recorte regional de la misma captura al pausar.
-- Límites de estados y nombres de ciudades según el zoom.
-- Caché, descarga en segundo plano y servicio opcional de inicio automático.
-- Documentación de instalación, arquitectura, hardware y siguientes pasos.
-- Pruebas offline de datos, servicios simulados, navegación y satélite.
+## Initial PiNexo baseline
 
-PiNexo identifica el proyecto. El hostname de la Raspberry y los nombres
-internos `pi-clima.service` y `~/.cache/pi-clima` son independientes.
+The repository starts from the functional v5 dashboard, developed before
+this project was organized as a separate repository. This list summarizes that
+development; it does not represent tags or releases published on GitHub.
+
+- `Inicio` (Home) menu with large icons for `Clima` (Weather) and `Notificaciones` (Notifications).
+- `Notificaciones` (Notifications) reserved as “Próximamente” (Coming soon).
+- Dark and light themes, with a persistent preference.
+- Current weather, the `Hoy` (Today) view, upcoming days, and a configurable rain alert.
+- NOAA satellite history, animation, pause, and panning.
+- Zoom up to 10× and regional cropping of the same image when paused.
+- State boundaries and city names based on the zoom level.
+- Caching, background downloads, and an optional service for automatic startup.
+- Documentation for installation, architecture, hardware, and next steps.
+- Offline tests for data, mocked services, navigation, and the satellite view.
+
+PiNexo identifies the project. The Raspberry Pi's hostname and the internal
+names `pi-clima.service` and `~/.cache/pi-clima` are independent.
