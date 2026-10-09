@@ -1,26 +1,26 @@
-# Fuentes de datos y atribuciones
+# Data sources and attribution
 
-El código de PiNexo y los datos de terceros tienen condiciones independientes.
-Conserva los créditos al reutilizar capturas, cartografía o datos de proveedores.
+PiNexo's code and third-party data are subject to separate terms.
+Retain the credits when reusing captures, maps, or provider data.
 
-| Fuente | Uso | Condiciones y crédito |
+| Source | Use | Terms and credit |
 |---|---|---|
-| [Open-Meteo](https://open-meteo.com/en/docs) | Condiciones, pronóstico horario y diario | [CC BY 4.0 y atribución](https://open-meteo.com/en/licence). Se redondean cifras y seleccionan muestras para el LCD. |
-| [NOAA GeoColor](https://satellitemaps.nesdis.noaa.gov/arcgis/rest/services/ABIGC_Last_24hr/ImageServer) | Historial de imágenes y recortes regionales geográficos | Crédito GeoColor: CIRA/NOAA. PiNexo solicita encuadres y superpone límites y nombres. |
-| [Natural Earth](https://www.naturalearthdata.com/) | Estados de México y ciudades | [Dominio público](https://www.naturalearthdata.com/about/terms-of-use/). Natural Earth, Nathaniel Vaughn Kelso, Tom Patterson y colaboradores. Se seleccionan entidades y simplifican contornos. |
-| [GeoNames: Xalapa de Enríquez](https://www.geonames.org/3526617/xalapa-de-enriquez.html) | Coordenadas de Xalapa | [CC BY](https://www.geonames.org/export/#terms). Coordenadas sin cambios; nombre abreviado a Xalapa. |
+| [Open-Meteo](https://open-meteo.com/en/docs) | Weather conditions, hourly and daily forecasts | [CC BY 4.0 and attribution](https://open-meteo.com/en/licence). Values are rounded and samples are selected for the LCD. |
+| [NOAA GeoColor](https://satellitemaps.nesdis.noaa.gov/arcgis/rest/services/ABIGC_Last_24hr/ImageServer) | Image history and regional geographic crops | GeoColor credit: CIRA/NOAA. PiNexo requests image extents and overlays boundaries and names. |
+| [Natural Earth](https://www.naturalearthdata.com/) | Mexican states and cities | [Public domain](https://www.naturalearthdata.com/about/terms-of-use/). Natural Earth, Nathaniel Vaughn Kelso, Tom Patterson, and contributors. Features are selected and outlines are simplified. |
+| [GeoNames: Xalapa de Enríquez](https://www.geonames.org/3526617/xalapa-de-enriquez.html) | Xalapa coordinates | [CC BY](https://www.geonames.org/export/#terms). Coordinates are unchanged; the name is shortened to Xalapa. |
 
-`map_data.json` incorpora metadatos, enlaces de origen y huellas de los
-archivos usados. Las poblaciones se utilizan para priorizar etiquetas y no se
-presentan como un censo actual.
+`map_data.json` includes metadata, source links, and fingerprints of the
+files used. Population figures are used to prioritize labels and are not
+presented as a current census.
 
-Las capturas del satélite son observaciones pasadas. La hora de captura y la
-hora de consulta son distintas; animar cuadros no constituye un pronóstico.
-Los avisos de lluvia del panel se calculan con el pronóstico y no sustituyen
-avisos oficiales.
+Satellite captures are past observations. Capture time and query time
+are different; animating frames does not constitute a forecast.
+The panel's rain alerts are calculated from the forecast and do not replace
+official alerts.
 
-La disponibilidad y condiciones de acceso de los proveedores pueden cambiar.
-Consulta sus documentos antes de un uso que exceda este panel personal.
+Provider availability and access terms may change.
+Consult their documentation before using the data beyond this personal panel.
 
-Pygame y las dependencias se instalan aparte y conservan sus propias licencias.
-El repositorio no incorpora sus binarios ni redistribuye el sistema operativo.
+Pygame and the dependencies are installed separately and retain their own licenses.
+The repository does not include their binaries or redistribute the operating system.
